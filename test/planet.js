@@ -34,5 +34,31 @@ describe("GET /planets/3", function () {
     planetData.should.be.jsonSchema(planetSchema);
   });
 
- 
+//   it("Verifies response time does not exceed 3ms", async function () {
+//     const response = await request.get("/planets/3");
+//     const responseTime = response.time();
+//     expect(responseTime).to.be.at.most(3);
+//   });
+});
+
+describe("POST /planets/3", function () {
+  it("Verifies that the response code equals 405", async function () {
+    const payload = {
+      name: "Automated testing",
+      Completed: true,
+    };
+    const response = await request.post("/planets/3", payload);
+    expect(response.statusCode).to.equal(405);
+
+  });
+  it("Verifies that the response message equals 'Method 'POST' not allowed.'", async function () {
+    const payload = {
+      name: "Automated testing",
+      Completed: true,
+    };
+    const response = await request.post("/planets/3", payload);
+    should.exist(response.body);
+    expect(response.body.detail.should.be.equal("Method 'POST' not allowed."));
+
+  });
 });
