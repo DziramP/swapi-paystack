@@ -1,6 +1,9 @@
 const request = require("supertest")("https://swapi.dev/api");
+const chai = require("chai");
 const expect = require("chai").expect;
 const should = require("chai").should();
+chai.use(require('chai-json-schema'));
+const planets = require('../schema/planetSchema');
 
 describe('GET /planets/3', function() {
     it('Verifies response headers and status code', async function() {
