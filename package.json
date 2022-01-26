@@ -1,13 +1,13 @@
 {
   "name": "paystack",
   "version": "1.0.0",
-  "description": "",
+  "description": "Regression test for an API",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive --timeout 10000"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["test","api","mocha","chai"],
+  "author": "Dziram Papka",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.4",

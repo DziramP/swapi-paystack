@@ -10,7 +10,6 @@ const { performance } = require("perf_hooks");
 describe("GET /planets/3", function () {
   it("Verifies response headers and status code", async function () {
     const response = await request.get("/planets/3");
-    console.log(response.elapsedTime);
     expect(response.statusCode).to.equal(200);
     expect(response.header["content-type"]).to.include("application/json");
     expect(response.header["vary"]).to.contain("Accept");
