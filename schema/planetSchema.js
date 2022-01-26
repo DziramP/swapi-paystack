@@ -1,5 +1,5 @@
 const planetSchema = {
-  title: "Planet Schema",
+  title: "Planet Schemaa",
   type: "object",
   required: [
     "name",
