@@ -2,22 +2,29 @@ const request = require("supertest")("https://swapi.dev/api");
 const chai = require("chai");
 const expect = require("chai").expect;
 const should = require("chai").should();
-chai.use(require("chai-json-schema"));
 const planetData = require("../schema/planetData");
 const planetSchema = require("../schema/planetSchema");
 const { performance } = require("perf_hooks");
 
+chai.use(require("chai-json-schema"));
+
 describe("GET /planets/3", function () {
-  it("Verifies response headers and status code", async function () {
-    const response = await request.get("/planets/3");
+  let response;
+
+  this.beforeAll(async () => {
+    response = await request.get("/planets/3");
+  });
+
+  it("Verifies response headers and status code", () => {
+    // Assert
     expect(response.statusCode).to.equal(200);
     expect(response.header["content-type"]).to.include("application/json");
     expect(response.header["vary"]).to.contain("Accept");
     expect(response.header["vary"]).to.contain("Cookie");
   });
 
-  it("Verifies the response data", async function () {
-    const response = await request.get("/planets/3");
+  it("Verifies the response data", () => {
+    // Assert
     should.exist(response.body);
     response.body.should.be.a("object");
     expect(response.body.should.have.property("url"));
@@ -28,21 +35,25 @@ describe("GET /planets/3", function () {
     expect(response.body.should.have.property("rotation_period"));
   });
 
-  it("Verifies the json schema", async function () {
-    const response = await request.get("/planets/3");
+  it("Verifies the json schema", () => {
+    // Assert
     should.exist(response.body);
     expect(planetData).to.be.jsonSchema(planetSchema);
     planetData.should.be.jsonSchema(planetSchema);
   });
 
-  it("Verifies response time does not exceed 3ms", async function () {
+  it("Verifies response time does not exceed 3ms", async () => {
+    // Arrange
     const startTime = performance.now();
+
+    // Act
     await request.get("/planets/3");
-    if((performance.now() - startTime) > 3){
-        console.log("response time exceeded 3ms")
+    if (performance.now() - startTime > 3) {
+      console.log("response time exceeded 3ms");
     }
+
+    // Assert
     expect(performance.now() - startTime).to.be.lessThan(3);
-    
   });
 });
 
