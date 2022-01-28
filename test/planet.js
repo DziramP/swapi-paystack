@@ -42,18 +42,18 @@ describe("GET /planets/3", function () {
     planetData.should.be.jsonSchema(planetSchema);
   });
 
-  it("Verifies response time does not exceed 3ms", async () => {
+  it("Verifies response time does not exceed 3s", async () => {
     // Arrange
     const startTime = performance.now();
 
     // Act
     await request.get("/planets/3");
-    if (performance.now() - startTime > 3) {
+    if (performance.now() - startTime > 3000) {
       console.log("response time exceeded 3ms");
     }
 
     // Assert
-    expect(performance.now() - startTime).to.be.lessThan(3);
+    expect(performance.now() - startTime).to.be.lessThan(3000);
   });
 });
 
