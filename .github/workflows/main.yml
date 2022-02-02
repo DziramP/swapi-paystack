@@ -5,6 +5,11 @@ on:
     branches: [main]
 
   workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to run"
+        required: true
+        default: "main"
 
 jobs:
   test:
